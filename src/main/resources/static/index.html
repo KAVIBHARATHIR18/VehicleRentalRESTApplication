@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vehicle Rental Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+
+        <div class="logo">
+            🚗 Vehicle Rental
+        </div>
+
+        <div class="nav-title">
+            REST API Dashboard
+        </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-text">
+
+            <p class="welcome">WELCOME TO</p>
+
+            <h1>
+                Vehicle Rental
+                <span>Management System</span>
+            </h1>
+
+            <p class="description">
+                Query-based REST application using
+                Spring Boot, MySQL, HTML, CSS and JavaScript.
+            </p>
+
+        </div>
+
+        <div class="car">
+            🚙
+        </div>
+
+    </section>
+
+
+    <main class="container">
+
+
+        <!-- SUMMARY -->
+        <section class="summary-section">
+
+            <div class="section-title">
+
+                <div>
+                    <h2>Dashboard Summary</h2>
+
+                    <p>
+                        Automatically maintained using MySQL triggers
+                    </p>
+                </div>
+
+                <button class="summary-btn"
+                        onclick="getSummary()">
+
+                    🔄 Refresh Summary
+
+                </button>
+
+            </div>
+
+
+            <div class="summary-grid">
+
+                <div class="summary-card blue-card">
+
+                    <div class="summary-icon">
+                        🚗
+                    </div>
+
+                    <div>
+                        <p>Total Rentals</p>
+
+                        <h3 id="totalRentals">
+                            -
+                        </h3>
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card green-card">
+
+                    <div class="summary-icon">
+                        💰
+                    </div>
+
+                    <div>
+                        <p>Total Payment</p>
+
+                        <h3 id="totalPayment">
+                            -
+                        </h3>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- VEHICLE QUERIES -->
+        <section>
+
+            <div class="section-title">
+
+                <div>
+                    <h2>Vehicle Queries</h2>
+
+                    <p>
+                        Execute database queries through REST APIs
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="query-grid">
+
+
+                <button class="query-card blue"
+                        onclick="getAllVehicles()">
+
+                    <span>🚗</span>
+
+                    <div>
+                        <h3>All Vehicles</h3>
+                        <p>View all vehicles</p>
+                    </div>
+
+                </button>
+
+
+                <button class="query-card purple"
+                        onclick="getVehiclesWithBranch()">
+
+                    <span>🏢</span>
+
+                    <div>
+                        <h3>Vehicles + Branch</h3>
+                        <p>JOIN query</p>
+                    </div>
+
+                </button>
+
+
+                <button class="query-card green"
+                        onclick="getAboveAverage()">
+
+                    <span>📊</span>
+
+                    <div>
+                        <h3>Above Average</h3>
+                        <p>Subquery using AVG</p>
+                    </div>
+
+                </button>
+
+
+                <button class="query-card orange"
+                        onclick="getMostExpensive()">
+
+                    <span>💰</span>
+
+                    <div>
+                        <h3>Most Expensive</h3>
+                        <p>Highest rental price</p>
+                    </div>
+
+                </button>
+
+
+                <button class="query-card pink"
+                        onclick="getGreaterThanAnyBike()">
+
+                    <span>🔎</span>
+
+                    <div>
+                        <h3>Greater Than ANY</h3>
+                        <p>ANY subquery</p>
+                    </div>
+
+                </button>
+
+
+                <button class="query-card cyan"
+                        onclick="getGreaterThanAllBikes()">
+
+                    <span>🔍</span>
+
+                    <div>
+                        <h3>Greater Than ALL</h3>
+                        <p>ALL subquery</p>
+                    </div>
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- OTHER DATA -->
+        <section class="other-section">
+
+            <div class="section-title">
+
+                <div>
+                    <h2>Rental Management</h2>
+
+                    <p>
+                        View application records
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="management-grid">
+
+
+                <button onclick="getCustomers()">
+                    👤
+                    <strong>Customers</strong>
+                </button>
+
+
+                <button onclick="getRentals()">
+                    📋
+                    <strong>Rentals</strong>
+                </button>
+
+
+                <button onclick="getRentalsWithDetails()">
+                    📝
+                    <strong>Rental Details</strong>
+                </button>
+
+
+                <button onclick="getPayments()">
+                    💳
+                    <strong>Payments</strong>
+                </button>
+
+
+                <button onclick="getPaymentsWithRental()">
+                    💰
+                    <strong>Payment Details</strong>
+                </button>
+
+
+                <button onclick="getBranches()">
+                    🏢
+                    <strong>Branches</strong>
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- RESULTS -->
+        <section class="result-section">
+
+            <div class="result-header">
+
+                <div>
+
+                    <p>DATABASE RESULTS</p>
+
+                    <h2 id="resultTitle">
+                        Results
+                    </h2>
+
+                </div>
+
+                <button onclick="clearResults()"
+                        class="clear-btn">
+
+                    Clear
+
+                </button>
+
+            </div>
+
+
+            <div id="output">
+
+                <div class="empty">
+
+                    <div>🚘</div>
+
+                    <h3>
+                        Ready to explore?
+                    </h3>
+
+                    <p>
+                        Select any query above.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <h3>
+            🚗 Vehicle Rental Management System
+        </h3>
+
+        <p>
+            Spring Boot • REST API • MySQL • HTML • CSS • JavaScript
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
